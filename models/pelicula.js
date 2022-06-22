@@ -1,25 +1,27 @@
-import mongoose from 'mongoose'
-
-const PersonaSchema = new mongoose.Schema({
-    nombre:{type: 'string',maxLength:25,required:true},
-    apellido:{type: 'string',maxLength:25,required:true},
-    email:{type: 'string',unique:true,required:true},
-    password:{type: 'string',required:true,minLength:6},
-    createAt:{type:Date,default:Date.new}
-})
+import mongoose from "mongoose";
 
 const PeliculaSchema = new mongoose.Schema({
-    titulo:{type: 'string',maxLength:50,required:true},
-    genero:{type: 'string',maxLength:25,required:true},
-    idioma:{type: 'string',required:0,default:0},
-    director:{type: 'string',required:0},
-    reparto:[
-        {nombre:{type: 'string',maxLength:25,required:true}},
-        {papel:{type: 'string',maxLength:25,required:true}}
-    ],
-    createAt:{type:Date,default:Date.new}
-})
+  titulo: { type: String, maxLength: 25, required: true },
+  subtitulo:{type: String, maxLength: 25, required: true},
+  duracion:{type:String, required: true},
+  poster:{type: String, required: true},
+  genero: { type: String, maxLength: 25, required: true },
+  sinopsis: { type: String,required: true},
+  estado:{ type: String, maxLength: 25, required:0},
+  idioma: { type: String, required: 0, default: 0 },
+  director: { type: String, required: 0 },
+  reparto: [
+    {
+      idActor: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Actor",
+        required: true,
+      },
+      personaje: { type: String },
+      rol: { type: String },
+    },
+  ],
+  createAt: { type: Date, default: Date.new },
+});
 
-
-
-export default mongoose.model('Persona',PersonaSchema, 'Pelicula', PeliculaSchema)
+export default mongoose.model("Pelicula", PeliculaSchema);
